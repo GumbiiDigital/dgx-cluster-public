@@ -1,0 +1,46 @@
+{
+  "schema_version": "public-example-v1",
+  "synthetic": true,
+  "purpose": "Demonstrate a layered cluster observation receipt without reproducing a live environment.",
+  "subject": {
+    "role": "representative_compute",
+    "hostname": "compute-a.example",
+    "address": "192.0.2.10"
+  },
+  "intent": {
+    "operation": "read_only_validation",
+    "acceptance": "All declared gates have current evidence and no unresolved identity mismatch."
+  },
+  "gates": [
+    {
+      "name": "identity",
+      "result": "pass",
+      "evidence_class": "synthetic"
+    },
+    {
+      "name": "management_reachability",
+      "result": "pass",
+      "evidence_class": "synthetic"
+    },
+    {
+      "name": "transport_readiness",
+      "result": "unknown",
+      "evidence_class": "not_collected"
+    },
+    {
+      "name": "workload_health",
+      "result": "unknown",
+      "evidence_class": "not_collected"
+    }
+  ],
+  "decision": {
+    "status": "not_accepted",
+    "reason": "Dependent evidence remains unknown.",
+    "next_step": "Collect the missing read-only evidence or stop."
+  },
+  "limitations": [
+    "Illustrative data only.",
+    "No live command was run.",
+    "No operational result is claimed."
+  ]
+}
