@@ -1,0 +1,4 @@
+role,name,management_endpoint,hardware_identifier,switch_port,cable_label,verification,notes
+switch,switch-a,192.0.2.11,AA:BB:CC:xx:xx:01,uplink-1,,example only,Use a private inventory outside this repository for live data
+workstation,workstation-a,192.0.2.11,AA:BB:CC:xx:xx:01,access-1,,example only,Placeholder record
+compute,spark-a.example,192.0.2.11,AA:BB:CC:xx:xx:01,compute-1,,example only,Placeholder record

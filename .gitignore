@@ -1,2 +1,8 @@
-__pycache__/
-*.pyc
+.DS_Store
+*.backup
+*.rsc
+*.npk
+*.log
+secrets/
+private/
+evidence/
