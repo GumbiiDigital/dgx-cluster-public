@@ -1,71 +1,90 @@
-# DGX Cluster Public
+# DGX Cluster Engineering Record
 
-I built this repository to explain the engineering discipline behind a local multi-system AI lab without publishing the lab itself. The useful work is the method: define identity before action, measure before changing, preserve rollback, and leave an evidence trail another operator can review.
+This repository is the privacy-reviewed public record of how I brought up, repaired, tuned, and revalidated a local eight-system DGX Spark cluster. The measurements and engineering conclusions are real. Hostnames, addresses, physical port labels, and control mappings are sanitized public aliases so the work remains reviewable without exposing the live environment.
 
-## What I built
+## What is here
 
-This public surface organizes reusable patterns for:
+The record follows the work in the order it happened:
 
-- infrastructure intent and system boundaries;
-- repeatable readiness and validation checks;
-- observability that separates reachability, authorization, transport, and workload health;
-- controlled experiments with explicit stop conditions;
-- recovery notes that preserve what failed, what changed, and what remains unknown; and
-- publication checks that keep private operations out of public documentation.
+1. Establish management identity before connecting the high-speed fabric.
+2. Normalize the first systems to a repeatable software and firmware baseline.
+3. Refuse to treat link-up as proof of useful RoCE throughput.
+4. Isolate a switch forwarding failure that survived normal link, MTU, FEC, and vendor diagnostics.
+5. Repair the ASIC forwarding path and prove both logical rails with directed RDMA and NCCL.
+6. Tune separate four-system and eight-system NCCL profiles from repeated measurements.
+7. Revalidate the entire fabric after a physical rack recable.
+8. Commission rack-local BLE power control fail-closed after physical evidence disproved an early decoder assumption.
+9. Document the open-rack thermal design without claiming a fan test that was not completed.
 
-## Why it matters
+## Recorded results
 
-A cluster can appear healthy while one layer is quietly wrong. A reachable host is not proof of a usable workload path. A fast benchmark is not proof of repeatability. A successful repair is not complete until the rollback and evidence are documented.
+These are historical observations from the engineering record, not current service guarantees.
 
-I treat those distinctions as part of the system, not as paperwork after the fact.
+| Milestone | Recorded result |
+| --- | --- |
+| Initial four-system TCP baseline | roughly `9.3-9.43 Gbit/s`, with retransmits |
+| Initial raw RDMA | roughly `0.1-7 Gbit/s` |
+| Direct-cable diagnostic | `12.8 Gbit/s` TCP and `12.71 Gbit/s` RDMA |
+| Switch forwarding repair | `111.07 Gbit/s` on the repaired path |
+| Dual TCP pairs after repair | `197.62`, `198.00`, and `196.61 Gbit/s`, with zero retransmits |
+| Sequential RDMA after repair | `97.98 Gbit/s` on each logical rail |
+| Full post-rewire directed RDMA | `112/112` ordered pairs, mean `109.20 Gbit/s` |
+| Tuned eight-system NCCL at 256 MiB | mean `22.9965 GB/s`, wrong `0` |
+| Later rack revalidation | jumbo `112/112`; RDMA `112/112` after bounded serial retry; NCCL `23.8196 GB/s`, wrong `0` |
 
-## Engineering approach
-
-1. Start with declared intent and stable logical roles.
-2. Resolve each target through a private source of truth.
-3. Observe the smallest surface that can answer the question.
-4. Separate discovery, validation, mutation, and acceptance.
-5. Make risky steps reversible and bounded.
-6. Record failures and corrections instead of flattening them into a success story.
-7. Publish only synthetic examples after a privacy gate.
-
-## Synthetic public-safe architecture
-
-The architecture diagram uses documentation-only names and addresses. It demonstrates the validation flow without reproducing a live topology.
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-## Representative work and artifacts
-
-- [Case study](docs/CASE-STUDY.md) - how I turn an ambiguous infrastructure symptom into a bounded validation program.
-- [Synthetic observation](examples/synthetic-cluster-observation.json) - a JSON-first example with documentation-only identities.
-- [Publication safety](docs/PUBLICATION-SAFETY.md) - the boundary enforced before material reaches this repository.
-- [Share copy](docs/SHARE.md) - concise language for explaining the work without overstating it.
-- [Safety checker](scripts/check_publication_safety.py) - a standard-library repository scan used locally and in CI.
-
-## Evidence and lessons
-
-The evidence in this repository is limited to the public artifacts themselves: valid JSON, reviewable diagrams, documented gates, and an automated privacy scan. No synthetic example is presented as a live test result.
-
-The main lesson is simple: repeatability comes from preserving identity, assumptions, actions, expected outcomes, actual outcomes, and rollback conditions as separate fields.
+The detailed context, failed hypotheses, and acceptance boundaries are preserved in the linked records. I do not flatten a long diagnosis into a benchmark screenshot.
 
 ## Repository map
 
-| Path | Purpose |
-|---|---|
-| README.md | Project narrative and limits |
-| docs/CASE-STUDY.md | Original portfolio case study |
-| docs/ARCHITECTURE.md | Synthetic Mermaid architecture |
-| docs/PUBLICATION-SAFETY.md | Publication rules |
-| docs/SHARE.md | Short and thread-style share copy |
-| examples/ | Synthetic JSON evidence shapes |
-| scripts/check_publication_safety.py | Local privacy and structure gate |
-| .github/workflows/publication-safety.yml | Continuous publication check |
+| Path | Contents |
+| --- | --- |
+| [docs/CASE-STUDY.md](docs/CASE-STUDY.md) | Chronological engineering narrative |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Sanitized architecture and validation flow |
+| [docs/COMMISSIONING.md](docs/COMMISSIONING.md) | Identity-first bring-up and parity gates |
+| [docs/FABRIC-TROUBLESHOOTING.md](docs/FABRIC-TROUBLESHOOTING.md) | RoCE diagnosis, forwarding root cause, repair, and rollback discipline |
+| [docs/NCCL-TUNING-RECORD.md](docs/NCCL-TUNING-RECORD.md) | Four-system and eight-system profiles with measured results |
+| [docs/RACK-RECABLE-REVALIDATION.md](docs/RACK-RECABLE-REVALIDATION.md) | Post-rewire fault and complete acceptance rerun |
+| [docs/POWER-BLE-COMMISSIONING.md](docs/POWER-BLE-COMMISSIONING.md) | Raspberry Pi BLE work and the fail-closed correction |
+| [docs/RECOVERY-POLICY.md](docs/RECOVERY-POLICY.md) | Guarded recovery decision and refusal logic |
+| [docs/THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) | Open-rack airflow design and the uncompleted differential test |
+| [docs/SOURCE-ADAPTATION.md](docs/SOURCE-ADAPTATION.md) | What was preserved and what was sanitized |
+| [examples/sanitized-cluster-aliases.json](examples/sanitized-cluster-aliases.json) | Internally consistent public aliases |
+| [examples/nccl-profiles.json](examples/nccl-profiles.json) | Recorded tuning profiles and public-safe launcher aliases |
+| [examples/recovery-policy.json](examples/recovery-policy.json) | Machine-readable guarded policy example |
+| [scripts/summarize_nccl_log.py](scripts/summarize_nccl_log.py) | Local parser for `nccl-tests` output |
+| [scripts/check_publication_safety.py](scripts/check_publication_safety.py) | Fail-closed publication scan |
+
+## Architecture boundary
+
+The public diagram uses `spark-a.example` through `spark-h.example` and RFC 5737 documentation addresses. Those aliases preserve the management-plane and dual-rail relationships, but they do not reproduce live identity, addressing, switch-port numbering, power mapping, or remote-access endpoints.
+
+The interface and transport names are retained because they explain the engineering result:
+
+```text
+NCCL_IB_HCA=rocep1s0f1,roceP2p1s0f1
+NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1
+UCX_NET_DEVICES=enp1s0f1np1,enP2p1s0f1np1
+```
+
+## How I treat evidence
+
+- A management ping is not a workload-health result.
+- A physical `200G` link is not proof of application throughput.
+- A protocol acknowledgement is not proof that the intended relay moved.
+- A one-off peak is not a frozen tuning profile.
+- A repair is not complete until the original gate is rerun and the rollback is recorded.
+- Unknown state stays unknown. It is not converted into green status for convenience.
 
 ## Publication boundary
 
-This is a public project interface, not an operational deployment repository. I do not publish live addresses, hostnames, hardware identities, account details, local paths, credentials, raw telemetry, service inventories, private topology, or equipment maps. Examples are synthetic and do not reproduce a live environment.
+The private working repository remains the operational source of truth. This public repository omits credentials, accounts, personal paths, raw captures, raw logs, hardware identifiers, controller identities, exact physical mappings, and current operational status. It preserves non-identifying measurements and engineering decisions because those are the substance of the work.
+
+See [docs/PUBLICATION-SAFETY.md](docs/PUBLICATION-SAFETY.md) for the enforced boundary.
 
 ## Limitations
 
-This repository does not prove a specific cluster size, topology, benchmark result, operational status, or production outcome. It deliberately omits the details needed to target or reproduce a private environment. Future evidence will be added only when it is both technically defensible and safe to publish.
+- The measurements describe the recorded test conditions, not every workload or software version.
+- The public aliases are not valid deployment inventory.
+- The BLE work proves an identity-verified read path and a critical decoder correction; it does not claim unattended relay recovery is enabled.
+- The thermal design is documented, but the planned fan-off/fan-on differential was deferred and no cooling delta is claimed.
+- No license has been selected for this repository.

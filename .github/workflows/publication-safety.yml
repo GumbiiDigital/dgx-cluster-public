@@ -15,5 +15,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Compile Python
+        run: python3 -m compileall -q scripts
+      - name: Test NCCL log parser
+        run: python3 scripts/summarize_nccl_log.py --self-test
       - name: Run publication safety gate
         run: python3 scripts/check_publication_safety.py
