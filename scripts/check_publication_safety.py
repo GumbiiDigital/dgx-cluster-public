@@ -16,6 +16,7 @@ REQUIRED_FILES = {
     Path("README.md"),
     Path("docs/ARCHITECTURE.md"),
     Path("docs/CASE-STUDY.md"),
+    Path("docs/MEDIA-REVIEW.md"),
     Path("docs/COMMISSIONING.md"),
     Path("docs/FABRIC-TROUBLESHOOTING.md"),
     Path("docs/NCCL-TUNING-RECORD.md"),
@@ -78,9 +79,11 @@ PATTERNS = {
         r"https://github[.]com/GumbiiDigital/(?![A-Za-z0-9._-]+-public(?:\b|/))"
     ),
     "raw_switch_port": re.compile(r"\bqsfp[0-9A-Za-z-]*-[0-9]+-[0-9]+\b", re.IGNORECASE),
-    "markdown_image": re.compile(r"!\[[^]]*\]\([^)]+\)"),
 }
 LINK = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
+MARKDOWN_IMAGE = re.compile(r"!\[[^]]*\]\(([^)]+)\)")
+MEDIA_REVIEW_ROOT = Path("media/review")
+MEDIA_REVIEW_MANIFEST = Path("docs/MEDIA-REVIEW.md")
 
 
 def repository_files() -> list[Path]:
@@ -146,6 +149,47 @@ def scan_text(relative: Path, text: str, failures: list[str]) -> None:
             elif clean and not resolved.exists():
                 failures.append(f"{relative}: broken relative link: {target}")
 
+        for target in MARKDOWN_IMAGE.findall(text):
+            clean = target.split("#", 1)[0]
+            if not clean or "://" in clean:
+                failures.append(f"{relative}: image must be a reviewed local asset: {target}")
+                continue
+            resolved = (ROOT / relative.parent / clean).resolve()
+            try:
+                image_relative = resolved.relative_to(ROOT.resolve())
+            except ValueError:
+                failures.append(f"{relative}: image escapes repository: {target}")
+                continue
+            if not image_relative.is_relative_to(MEDIA_REVIEW_ROOT):
+                failures.append(f"{relative}: image is outside media/review: {target}")
+            elif not resolved.exists():
+                failures.append(f"{relative}: broken image link: {target}")
+
+
+def scan_image(relative: Path, failures: list[str]) -> None:
+    if not relative.is_relative_to(MEDIA_REVIEW_ROOT):
+        failures.append(f"image asset is outside the reviewed media boundary: {relative}")
+        return
+    if relative.suffix.lower() not in {".jpg", ".jpeg"}:
+        failures.append(f"only metadata-scrubbed JPEG review assets are authorized: {relative}")
+        return
+    manifest = ROOT / MEDIA_REVIEW_MANIFEST
+    if not manifest.exists() or relative.as_posix() not in manifest.read_text(encoding="utf-8"):
+        failures.append(f"image must be listed in {MEDIA_REVIEW_MANIFEST}: {relative}")
+
+    data = (ROOT / relative).read_bytes()
+    if not data.startswith(b"\xff\xd8"):
+        failures.append(f"image is not a JPEG: {relative}")
+    metadata_headers = {
+        b"Exif": "EXIF",
+        b"Photoshop": "Photoshop metadata",
+        b"ICC_PROFILE": "ICC profile metadata",
+    }
+    header = data[:4096]
+    for marker, label in metadata_headers.items():
+        if marker in header:
+            failures.append(f"image contains {label}; scrub metadata before publication: {relative}")
+
 
 def main() -> int:
     failures: list[str] = []
@@ -164,11 +208,9 @@ def main() -> int:
     failures.extend(f"license file is not authorized: {path}" for path in license_files)
 
     image_suffixes = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
-    failures.extend(
-        f"image asset is not authorized: {path}"
-        for path in files
-        if path.suffix.lower() in image_suffixes
-    )
+    for relative in files:
+        if relative.suffix.lower() in image_suffixes:
+            scan_image(relative, failures)
 
     json_files = [path for path in files if path.suffix == ".json"]
     if not json_files:

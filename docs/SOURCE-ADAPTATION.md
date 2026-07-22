@@ -50,7 +50,8 @@ The public cluster record does not import:
 
 - raw evidence directories or logs;
 - private inventory and topology manifests;
-- screenshots or rack photos;
+- unreviewed screenshots or rack photos; a single rack overview is staged under
+  `media/review/` for explicit owner review only;
 - controller captures or live power maps;
 - unrelated training corpora and model artifacts;
 - active monitoring state; or

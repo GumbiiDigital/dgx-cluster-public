@@ -120,6 +120,8 @@ The full result is in [NCCL-TUNING-RECORD.md](NCCL-TUNING-RECORD.md).
 
 ## Phase 8: revalidate after the rack changed again
 
+The physical result is documented visually in the staged [rack overview](../media/review/gumbii-dgx-spark-rack-overview.jpg). It is a review candidate for this case study, not a deployment diagram. PSU-clip and print-to-install images remain pending until their user-owned source files are available.
+
 After another teardown and reassembly, the full validation ran again rather than relying on the old success:
 
 - all eight management SSH checks passed;

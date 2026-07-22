@@ -39,6 +39,15 @@ The public aliases are internally consistent but non-operational:
 
 The addresses are reserved for documentation and do not identify the live environment.
 
+## Reviewed visual evidence
+
+Unreviewed screenshots, rack photos, and equipment maps remain excluded. A
+user-owned image may be staged under `media/review/` only when its metadata has
+been removed, its pixels have been manually inspected, and its proposed
+placement is documented in [MEDIA-REVIEW.md](MEDIA-REVIEW.md). A staged image is
+not merged automatically and does not authorize publication of exact power,
+control, or live topology relationships.
+
 ## Automated gate
 
 The publication checker rejects common secret patterns, private and CGNAT addresses, multicast-local hostnames, email addresses, hardware-address formats, UUIDs, personal home paths, raw controller-map fields, and links to private source repositories. It also validates JSON, relative Markdown links, the Mermaid-only architecture file, and required repository structure.

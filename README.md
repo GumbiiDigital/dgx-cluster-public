@@ -2,6 +2,15 @@
 
 This repository is the privacy-reviewed public record of how I brought up, repaired, tuned, and revalidated a local eight-system DGX Spark cluster. The measurements and engineering conclusions are real. Hostnames, addresses, physical port labels, and control mappings are sanitized public aliases so the work remains reviewable without exposing the live environment.
 
+## Physical implementation evidence
+
+![Gumbii Digital DGX Spark rack overview](media/review/gumbii-dgx-spark-rack-overview.jpg)
+
+This rack overview is staged for owner review. It is intended to show the
+physical build behind the measurements, not to serve as an operational topology
+or equipment map. See [MEDIA-REVIEW.md](docs/MEDIA-REVIEW.md) for the redaction
+check, proposed placement, and pending PSU-clip/STL media slots.
+
 ## What is here
 
 The record follows the work in the order it happened:
@@ -39,6 +48,7 @@ The detailed context, failed hypotheses, and acceptance boundaries are preserved
 | Path | Contents |
 | --- | --- |
 | [docs/CASE-STUDY.md](docs/CASE-STUDY.md) | Chronological engineering narrative |
+| [docs/MEDIA-REVIEW.md](docs/MEDIA-REVIEW.md) | Staged visual evidence and placement review |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Sanitized architecture and validation flow |
 | [docs/COMMISSIONING.md](docs/COMMISSIONING.md) | Identity-first bring-up and parity gates |
 | [docs/FABRIC-TROUBLESHOOTING.md](docs/FABRIC-TROUBLESHOOTING.md) | RoCE diagnosis, forwarding root cause, repair, and rollback discipline |
@@ -78,6 +88,11 @@ UCX_NET_DEVICES=enp1s0f1np1,enP2p1s0f1np1
 ## Publication boundary
 
 The private working repository remains the operational source of truth. This public repository omits credentials, accounts, personal paths, raw captures, raw logs, hardware identifiers, controller identities, exact physical mappings, and current operational status. It preserves non-identifying measurements and engineering decisions because those are the substance of the work.
+
+Reviewed visual evidence is kept under `media/review/`. Each asset is
+metadata-scrubbed and manually inspected before it can be merged. A staged
+overview is not permission to publish an exact control relationship, power map,
+or live topology.
 
 See [docs/PUBLICATION-SAFETY.md](docs/PUBLICATION-SAFETY.md) for the enforced boundary.
 
