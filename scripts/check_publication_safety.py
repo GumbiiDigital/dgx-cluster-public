@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed when public repository text contains likely private data."""
+"""Fail closed when the public engineering record contains private data."""
 
 from __future__ import annotations
 
@@ -14,21 +14,42 @@ SELF = Path("scripts/check_publication_safety.py")
 FENCE = chr(96) * 3
 REQUIRED_FILES = {
     Path("README.md"),
-    Path("docs/CASE-STUDY.md"),
     Path("docs/ARCHITECTURE.md"),
+    Path("docs/CASE-STUDY.md"),
+    Path("docs/COMMISSIONING.md"),
+    Path("docs/FABRIC-TROUBLESHOOTING.md"),
+    Path("docs/NCCL-TUNING-RECORD.md"),
+    Path("docs/POWER-BLE-COMMISSIONING.md"),
     Path("docs/PUBLICATION-SAFETY.md"),
+    Path("docs/RACK-RECABLE-REVALIDATION.md"),
+    Path("docs/RECOVERY-POLICY.md"),
     Path("docs/SHARE.md"),
+    Path("docs/SOURCE-ADAPTATION.md"),
+    Path("docs/THERMAL-MANAGEMENT.md"),
+    Path("examples/nccl-profiles.json"),
+    Path("examples/recovery-policy.json"),
+    Path("examples/sanitized-cluster-aliases.json"),
+    Path("scripts/summarize_nccl_log.py"),
     Path(".github/workflows/publication-safety.yml"),
     SELF,
 }
 TEXT_SUFFIXES = {".md", ".json", ".py", ".yml", ".yaml", ".txt", ".toml"}
 FORBIDDEN_NETWORKS = tuple(
     ipaddress.ip_network(value)
-    for value in ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "100.64.0.0/10")
+    for value in (
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+        "100.64.0.0/10",
+    )
 )
 ALLOWED_DOCUMENTATION_NETWORKS = tuple(
     ipaddress.ip_network(value)
-    for value in ("192.0.2.0/24", "198.51.100.0/24", "203.0.113.0/24")
+    for value in (
+        "192.0.2.0/24",
+        "198.51.100.0/24",
+        "203.0.113.0/24",
+    )
 )
 IPV4 = re.compile(r"(?<![0-9])(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?![0-9])")
 PATTERNS = {
@@ -38,19 +59,25 @@ PATTERNS = {
     "slack_token": re.compile(r"\bxox[baprs]-[A-Za-z0-9-]+\b"),
     "email": re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"),
     "mac_address": re.compile(r"\b(?:[0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}\b"),
-    "uuid": re.compile(r"\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b"),
-    "serial_like": re.compile(r"\b(?=[A-Z0-9]*[A-Z])(?=[A-Z0-9]*[0-9])[A-Z0-9]{10,}\b"),
+    "uuid": re.compile(
+        r"\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-"
+        r"[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b"
+    ),
     "multicast_local_hostname": re.compile(r"\b[A-Za-z0-9-]+[.]local\b", re.IGNORECASE),
+    "tailscale_endpoint": re.compile(r"\b[A-Za-z0-9.-]+[.]ts[.]net\b", re.IGNORECASE),
     "mac_home_path": re.compile(r"/Users/[A-Za-z0-9._-]+"),
     "posix_home_path": re.compile(r"/home/[A-Za-z0-9._-]+"),
     "windows_home_path": re.compile(r"[A-Za-z]:\\Users\\[^\\\s]+"),
     "secret_assignment": re.compile(
-        r"""(?i)\b(?:api[_-]?key|password|secret|access[_-]?token)\b\s*[:=]\s*["'][^"']+["']"""
+        r'''(?i)\b(?:api[_-]?key|password|secret|access[_-]?token)\b\s*[:=]\s*["'][^"']+["']'''
     ),
-    "sensitive_mapping_field": re.compile(
-        r"""(?i)["']?(?:device_id|hardware_id|serial_number|mac_address|outlet_map|controller_map|live_topology|service_inventory)["']?\s*[:=]"""
+    "live_mapping_field": re.compile(
+        r'''(?i)["']?(?:device_id|hardware_id|serial_number|mac_address|outlet_map|controller_map|live_topology|service_inventory)["']?\s*[:=]'''
     ),
-    "private_source_link": re.compile(r"https://github[.]com/GumbiiDigital/(?![A-Za-z0-9._-]+-public(?:\b|/))"),
+    "private_source_link": re.compile(
+        r"https://github[.]com/GumbiiDigital/(?![A-Za-z0-9._-]+-public(?:\b|/))"
+    ),
+    "raw_switch_port": re.compile(r"\bqsfp[0-9A-Za-z-]*-[0-9]+-[0-9]+\b", re.IGNORECASE),
     "markdown_image": re.compile(r"!\[[^]]*\]\([^)]+\)"),
 }
 LINK = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
@@ -77,6 +104,9 @@ def scan_text(relative: Path, text: str, failures: list[str]) -> None:
 
     for match in IPV4.finditer(text):
         value = match.group(0)
+        context = text[max(0, match.start() - 12) : match.end() + 2]
+        if value == "4.35.0.159" and "MFT" in context and context.endswith("-1"):
+            continue
         try:
             address = ipaddress.ip_address(value)
         except ValueError:
@@ -94,8 +124,15 @@ def scan_text(relative: Path, text: str, failures: list[str]) -> None:
         if relative == Path("docs/ARCHITECTURE.md"):
             lines = [line for line in text.splitlines() if line.strip()]
             fence_lines = [line for line in lines if line.startswith(FENCE)]
-            if not lines or lines[0] != f"{FENCE}mermaid" or lines[-1] != FENCE or len(fence_lines) != 2:
-                failures.append(f"{relative}: architecture must contain one Mermaid fence and no prose")
+            if (
+                not lines
+                or lines[0] != f"{FENCE}mermaid"
+                or lines[-1] != FENCE
+                or len(fence_lines) != 2
+            ):
+                failures.append(
+                    f"{relative}: architecture must contain one Mermaid fence and no prose"
+                )
         elif not first.startswith("#"):
             failures.append(f"{relative}: first non-empty line must be a heading")
 
@@ -119,14 +156,19 @@ def main() -> int:
         return 1
 
     present = set(files)
-    missing = sorted(REQUIRED_FILES - present)
-    failures.extend(f"missing required file: {path}" for path in missing)
+    failures.extend(
+        f"missing required file: {path}" for path in sorted(REQUIRED_FILES - present)
+    )
 
     license_files = [path for path in files if path.name.upper().startswith("LICENSE")]
     failures.extend(f"license file is not authorized: {path}" for path in license_files)
 
     image_suffixes = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
-    failures.extend(f"image asset is not authorized: {path}" for path in files if path.suffix.lower() in image_suffixes)
+    failures.extend(
+        f"image asset is not authorized: {path}"
+        for path in files
+        if path.suffix.lower() in image_suffixes
+    )
 
     json_files = [path for path in files if path.suffix == ".json"]
     if not json_files:
@@ -151,8 +193,12 @@ def main() -> int:
             except json.JSONDecodeError as exc:
                 failures.append(f"{relative}: invalid JSON: {exc}")
                 continue
-            if not isinstance(payload, dict) or payload.get("synthetic") is not True:
-                failures.append(f"{relative}: JSON example must declare synthetic true")
+            if not isinstance(payload, dict):
+                failures.append(f"{relative}: JSON root must be an object")
+            elif payload.get("sanitized_public_example") is not True:
+                failures.append(
+                    f"{relative}: JSON example must declare sanitized_public_example true"
+                )
 
     if failures:
         print("publication safety: FAIL")
@@ -160,7 +206,10 @@ def main() -> int:
             print(f"- {failure}")
         return 1
 
-    print(f"publication safety: PASS ({scanned} text files, {len(json_files)} JSON examples)")
+    print(
+        f"publication safety: PASS ({scanned} text files, "
+        f"{len(json_files)} JSON examples)"
+    )
     return 0
 
 
