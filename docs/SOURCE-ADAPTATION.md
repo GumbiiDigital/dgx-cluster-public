@@ -51,8 +51,8 @@ The public cluster record does not import:
 - raw evidence directories or logs;
 - private inventory and topology manifests;
 - unreviewed screenshots or rack photos; fourteen owner-reviewed JPEGs are
-  staged under `media/review/` with metadata removal and documented pixel
-  redactions;
+  staged under `media/review/` with metadata removal and documented visual
+  review;
 - controller captures or live power maps;
 - unrelated training corpora and model artifacts;
 - active monitoring state; or

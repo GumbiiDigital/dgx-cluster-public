@@ -79,9 +79,10 @@ publishing the exact outlet selector or controller identity.
 
 ![Fan below the PSU supports](../media/review/11-fan-below-psu-standoffs.jpg)
 
-The resulting rack is shown from both sides. Small equipment identifiers,
-serial-bearing tags, and exact network-port relationships are pixelated in the
-public copies. The geometry and cooling relationship remain visible.
+The resulting rack is shown from both sides. The owner reviewed and approved
+the visible Spark names, power-unit names, equipment model markings, rack
+labels, and cabling. The public JPEGs retain those pixels while removing the
+original image metadata.
 
 ![Completed rack from the rear](../media/review/12-completed-rack-rear-sanitized.jpg)
 

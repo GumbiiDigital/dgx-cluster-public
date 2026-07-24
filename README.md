@@ -10,8 +10,8 @@ This repository is the privacy-reviewed public record of how I brought up, repai
 
 The visual record now follows the power-supply support from the original heat
 pocket through dimensional test prints, final production parts, installation,
-and fan placement. Exact equipment labels and network-port relationships are
-redacted where they would reveal the live physical map. See
+and fan placement. The owner reviewed and approved the visible rack labels and
+cabling in these photographs. See
 [THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) for the complete build and
 measured fan test.
 

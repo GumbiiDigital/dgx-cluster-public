@@ -24,34 +24,30 @@ The existing rack overview remains part of the review set:
 | 9 | `media/review/09-final-clips-installed-side.jpg` | Installed support geometry from the side |
 | 10 | `media/review/10-final-clips-installed-rear.jpg` | Installed support set from the rear |
 | 11 | `media/review/11-fan-below-psu-standoffs.jpg` | Fan position below the raised PSU bricks |
-| 12 | `media/review/12-completed-rack-rear-sanitized.jpg` | Completed rear arrangement with equipment tags pixelated |
-| 13 | `media/review/13-completed-rack-front-sanitized.jpg` | Completed front arrangement with exact port mapping and labels pixelated |
+| 12 | `media/review/12-completed-rack-rear-sanitized.jpg` | Completed rear arrangement with visible owner-approved equipment labels |
+| 13 | `media/review/13-completed-rack-front-sanitized.jpg` | Completed front arrangement with visible owner-approved rack labels and cabling |
 
 The complete sequence is placed in
 [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md). Selected frames appear in the
 README and case study where they support the broader engineering timeline.
 
-## Pixel review and redactions
+## Pixel review
 
-The first ten new photographs contain no readable IP addresses, hostnames,
-MAC addresses, credentials, account data, or exact controller map. Three images
-received limited deterministic pixelation:
+All thirteen photographs were manually inspected. The owner approved the
+visible Spark names, power-unit names, equipment model markings, rack labels,
+numbered cable marker, switch and patch-panel cabling, and the completed front
+and rear rack views. No pixels are blurred, masked, pixelated, or replaced.
 
-- `media/review/11-fan-below-psu-standoffs.jpg`: one numbered cable marker;
-- `media/review/12-completed-rack-rear-sanitized.jpg`: small equipment labels
-  and a serial-bearing hanging tag; and
-- `media/review/13-completed-rack-front-sanitized.jpg`: host labels,
-  infrastructure labels, serial-bearing PDU text, and the visible switch-port
-  and patch-panel relationship.
-
-The redactions do not alter the PSU supports, fan, rack structure, or the
-mechanical relationships being documented. Power-bank names that do not expose
-an actionable mapping may remain where visible.
+The photographs contain no visible IP addresses, MAC addresses, usernames,
+credentials, account data, or private controller identifiers. The word
+`sanitized` in two filenames refers to the metadata-free public JPEG conversion,
+not a pixel redaction.
 
 ## Publication gate
 
 - All fourteen review JPEGs are listed in this manifest.
 - Every image reference resolves locally.
 - JPEG metadata markers are rejected by the publication checker.
-- Exact power, controller, and network relationships remain excluded.
+- Exact addresses, credentials, private controller identifiers, and operational
+  configuration remain excluded from the repository text.
 - This remains a draft PR until the owner separately authorizes merge.
