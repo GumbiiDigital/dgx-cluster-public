@@ -40,6 +40,11 @@ below them. The complete prototype, fit-test, production, installation, and
 bounded temperature record is documented in
 [Open-Rack Thermal Management](docs/THERMAL-MANAGEMENT.md).
 
+The production geometry is included as both the
+[parametric Python generator](hardware/psu-support/spark_psu_clip_v4.py) and the
+[ready-to-print STL](hardware/psu-support/spark_psu_clip_v4.stl). The source
+keeps the tested dimensions explicit and regenerates the STL beside the script.
+
 ## What is here
 
 The record follows the work in the order it happened:
