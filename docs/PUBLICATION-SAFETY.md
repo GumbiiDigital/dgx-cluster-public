@@ -41,12 +41,12 @@ The addresses are reserved for documentation and do not identify the live enviro
 
 ## Reviewed visual evidence
 
-Unreviewed screenshots, rack photos, and equipment maps remain excluded. A
-user-owned image may be staged under `media/review/` only when its metadata has
+Unreviewed screenshots, rack photos, and equipment maps remain excluded. An
+image may be published under `media/review/` only when its metadata has
 been removed, its pixels have been manually inspected, and its placement and
 review status are documented in [MEDIA-REVIEW.md](MEDIA-REVIEW.md). The reviewed
-set records the PSU-support design and rack thermal work. The owner approved the
-visible Spark names, power-unit names, model markings, rack labels, and cabling.
+set records the PSU-support design and rack thermal work. I approved the visible
+Spark names, power-unit names, model markings, rack labels, and cabling.
 The photos contain no visible IP addresses, MAC addresses, credentials, account
 data, or private controller identifiers.
 
