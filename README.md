@@ -2,42 +2,73 @@
 
 This repository is the privacy-reviewed public record of how I brought up, repaired, tuned, and revalidated a local eight-system DGX Spark cluster. The measurements and engineering conclusions are real. Hostnames, addresses, physical port labels, and control mappings are sanitized public aliases so the work remains reviewable without exposing the live environment.
 
-## Physical implementation evidence
-
-![Completed Gumbii Digital DGX Spark rack](media/review/13-completed-rack-front-sanitized.jpg)
-
-The visual record now follows the power-supply support from the original heat
-pocket through dimensional test prints, final production parts, installation,
-and fan placement. I reviewed and approved the visible rack labels and cabling
-in these photographs. See
-[THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) for the complete build and
-measured fan test.
-
 ## Custom-printed PSU support system
+
+![First full orange PSU support prototype](media/review/02-orange-prototype-body.jpg)
 
 The eight PSU bricks originally occupied rack surfaces and concentrated warm
 hardware and cable loops through the middle of the rack. I designed a support
 that would secure each brick to the rack structure, keep both cable ends
 serviceable, and open a clear path below the power supplies for upward airflow.
 
-The first full orange prototype fit the PSU and preserved cable clearance, but
-its rack-retention clip did not seat correctly. Instead of reprinting the entire
-support for every adjustment, I isolated the clip geometry and printed four
-small dimensional test pieces in one run.
+### Full-size prototype and fit checks
+
+The first full orange prototype established the support body, PSU envelope,
+ventilation openings, and cable-management geometry.
+
+![PSU installed in the orange prototype](media/review/03-orange-prototype-psu-fit.jpg)
+
+The PSU fit the body correctly and both cable ends remained accessible.
+
+![Cable clearance on the orange prototype](media/review/04-orange-prototype-cable-clearance.jpg)
+
+The body and cable clearances were right, but the rack-retention clip did not
+seat correctly. Reprinting the entire support for each small clip adjustment
+would have wasted both time and material.
+
+### Isolated clip iteration
+
+I separated the clip geometry from the full support and printed four small
+dimensional test pieces in one run.
 
 ![Four dimensional rack-clip tests](media/review/05-dimensional-test-clips.jpg)
 
-The best-fitting clip dimension went back into the full model. I then printed
-the production set in green and installed all eight supports against the rack
-structure.
+The full orange body could then be removed while the retention geometry was
+evaluated independently.
+
+![Orange prototype removed from the rack](media/review/06-orange-prototype-support-removal.jpg)
+
+The winning clip dimension was returned to the full model and checked against
+the actual 1U rack panel.
+
+![Final orange prototype rack fit](media/review/07-orange-prototype-rack-fit.jpg)
+
+### Production and installation
+
+With the physical fit established, I printed the eight-part production set in
+green ABS.
+
+![Eight green production supports](media/review/08-final-production-prints.jpg)
+
+All eight supports were installed against the rack structure with serviceable
+cable paths.
 
 ![Installed custom PSU supports](media/review/09-final-clips-installed-side.jpg)
 
 The finished system is a mechanical and thermal intervention, not cosmetic
 cable organization: the PSUs are retained and serviceable, the warm bricks no
 longer sit in a concentrated pile, and the AC Infinity fan has an open path
-below them. The complete prototype, fit-test, production, installation, and
-bounded temperature record is documented in
+below them.
+
+![AC Infinity fan below the raised PSU supports](media/review/11-fan-below-psu-standoffs.jpg)
+
+The completed rack is the result of that prototype, fit-test, production,
+installation, and airflow work.
+
+![Completed Gumbii Digital DGX Spark rack](media/review/13-completed-rack-front-sanitized.jpg)
+
+I reviewed and approved the visible rack labels and cabling in these
+photographs. The complete build and bounded temperature record is documented in
 [Open-Rack Thermal Management](docs/THERMAL-MANAGEMENT.md).
 
 The production geometry is included as both the
