@@ -1,9 +1,9 @@
 # Media Review: Rack, PSU Supports, and Thermal Evidence
 
-The owner supplied and approved thirteen HEIC photographs for this draft. Each
+I supplied and approved thirteen HEIC photographs for publication. Each
 public copy was converted to JPEG, resized to a maximum long edge of `1800`
 pixels, saved without EXIF or location metadata, and manually inspected. The
-original attachments remain unchanged.
+original attachments remain unchanged in the private working record.
 
 The existing rack overview remains part of the review set:
 
@@ -24,8 +24,8 @@ The existing rack overview remains part of the review set:
 | 9 | `media/review/09-final-clips-installed-side.jpg` | Installed support geometry from the side |
 | 10 | `media/review/10-final-clips-installed-rear.jpg` | Installed support set from the rear |
 | 11 | `media/review/11-fan-below-psu-standoffs.jpg` | Fan position below the raised PSU bricks |
-| 12 | `media/review/12-completed-rack-rear-sanitized.jpg` | Completed rear arrangement with visible owner-approved equipment labels |
-| 13 | `media/review/13-completed-rack-front-sanitized.jpg` | Completed front arrangement with visible owner-approved rack labels and cabling |
+| 12 | `media/review/12-completed-rack-rear-sanitized.jpg` | Completed rear arrangement with reviewed equipment labels |
+| 13 | `media/review/13-completed-rack-front-sanitized.jpg` | Completed front arrangement with reviewed rack labels and cabling |
 
 The complete sequence is placed in
 [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md). Selected frames appear in the
@@ -33,10 +33,10 @@ README and case study where they support the broader engineering timeline.
 
 ## Pixel review
 
-All thirteen photographs were manually inspected. The owner approved the
-visible Spark names, power-unit names, equipment model markings, rack labels,
-numbered cable marker, switch and patch-panel cabling, and the completed front
-and rear rack views. No pixels are blurred, masked, pixelated, or replaced.
+I manually inspected all thirteen photographs and approved the visible Spark
+names, power-unit names, equipment model markings, rack labels, numbered cable
+marker, switch and patch-panel cabling, and the completed front and rear rack
+views. No pixels are blurred, masked, pixelated, or replaced.
 
 The photographs contain no visible IP addresses, MAC addresses, usernames,
 credentials, account data, or private controller identifiers. The word
@@ -50,4 +50,5 @@ not a pixel redaction.
 - JPEG metadata markers are rejected by the publication checker.
 - Exact addresses, credentials, private controller identifiers, and operational
   configuration remain excluded from the repository text.
-- This remains a draft PR until the owner separately authorizes merge.
+- Future additions require the same metadata, pixel, placement, and privacy
+  review before publication.

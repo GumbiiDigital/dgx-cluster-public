@@ -2,9 +2,9 @@
 
 ## Short post
 
-I rebuilt my DGX Cluster public repo around the work itself: the slow underlay, the switch forwarding root cause, the dual-rail repair, the NCCL tuning, the recable failure, and the validation that followed. The measurements are real. The live identities and topology are not published.
+I rebuilt my DGX Cluster public repo around the work itself: the slow underlay, the switch forwarding root cause, the dual-rail repair, NCCL tuning, rack recabling, custom-printed PSU supports, and a bounded AC Infinity fan test. The measurements and build photographs are real. The live identities and topology are not published.
 
-## Thread draft
+## X thread
 
 ### 1
 
@@ -37,3 +37,15 @@ I also included the power/BLE commissioning failure that mattered: a valid ackno
 ### 8
 
 Everything public uses documentation addresses and stable aliases. The technical decisions and measurements remain; the live topology, control map, accounts, and raw captures do not.
+
+### 9
+
+The rack work was mechanical as well as computational. I designed PSU supports to lift eight warm power bricks off the rack surfaces, tested four clip dimensions instead of reprinting the full part four times, and placed the fan below the resulting open path.
+
+### 10
+
+A bounded fan test recorded `82.4 F` with the fan on, `82.8 F` after two minutes off, and `82.5 F` after restoration and independent readback. That proves the control path and local temperature response, not maximum thermal capacity or measured CFM.
+
+### 11
+
+The public record includes the print iterations, completed rack photographs, and engineering sequence. Image metadata is removed; the visible equipment labels and cabling were reviewed before publication.
