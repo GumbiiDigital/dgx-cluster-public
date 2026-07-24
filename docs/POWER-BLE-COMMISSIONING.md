@@ -48,7 +48,7 @@ The first decoder treated a field in a GET response as physical relay state. A l
 
 The field was reclassified as configured program mode, not relay state.
 
-The daemon behavior was corrected to:
+At that stage, the daemon behavior was corrected to:
 
 - report physical relay state as unknown unless a separate correlated source proves it;
 - preserve unknown sensor and alarm fields as null;
@@ -57,6 +57,25 @@ The daemon behavior was corrected to:
 - keep unattended recovery disabled.
 
 The correction passed Ruff and `199` tests in the private implementation. The deployed verification produced zero relay writes.
+
+## Subsequent bounded commissioning
+
+Later work used the dedicated fan outlet as the only harmless live fixture. A
+passive capture established internally consistent environmental fields across
+the observed frame variants: `80.3-80.4 F`, `41.8-41.9%` humidity, and
+`2.04-2.06 kPa` VPD during the retained baseline. Normal alarm and overload
+indicators were also decoded without inducing a fault.
+
+The fan then provided physical relay proof under a strict one-outlet helper:
+
+- fan-ON baseline: `82.4 F`;
+- two minutes after fan OFF: `82.8 F`;
+- immediate reading after restoring ON: `82.9 F`;
+- later ON recovery reading: `82.5 F`; and
+- every protected outlet remained ON.
+
+The official app independently verified the fan state and probe readings. Raw
+frames, controller identities, and the exact outlet selector remain private.
 
 ## What the app-free path proved
 
@@ -68,15 +87,15 @@ With the app closed, the Pi could establish a local read path that validated:
 - sequence correlation; and
 - selector correlation.
 
-That is a useful result, but it is not a physical relay-state decoder.
+That app-free read path was useful, but by itself it did not establish physical
+relay state. The later bounded fan cycle added independent state verification.
 
 ## What remains deliberately unclaimed
 
-- app-free physical relay readback;
-- a complete, proven controller-to-relay mapping;
-- temperature and alarm decoding;
-- unattended Spark recovery; and
-- production temperature-driven fan switching.
+- unattended Spark recovery;
+- production temperature-driven fan switching;
+- long-duration rack thermal capacity; and
+- a general relay map suitable for publication.
 
 The work is substantive because it caught the unsafe assumption before it became automation. Fail-closed is the correct commissioning outcome when software state and physical observation disagree.
 

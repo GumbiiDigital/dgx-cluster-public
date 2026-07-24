@@ -39,6 +39,17 @@ The public aliases are internally consistent but non-operational:
 
 The addresses are reserved for documentation and do not identify the live environment.
 
+## Reviewed visual evidence
+
+Unreviewed screenshots, rack photos, and equipment maps remain excluded. A
+user-owned image may be staged under `media/review/` only when its metadata has
+been removed, its pixels have been manually inspected, and its placement and
+review status are documented in [MEDIA-REVIEW.md](MEDIA-REVIEW.md). The reviewed
+set records the PSU-support design and rack thermal work. The owner approved the
+visible Spark names, power-unit names, model markings, rack labels, and cabling.
+The photos contain no visible IP addresses, MAC addresses, credentials, account
+data, or private controller identifiers.
+
 ## Automated gate
 
 The publication checker rejects common secret patterns, private and CGNAT addresses, multicast-local hostnames, email addresses, hardware-address formats, UUIDs, personal home paths, raw controller-map fields, and links to private source repositories. It also validates JSON, relative Markdown links, the Mermaid-only architecture file, and required repository structure.

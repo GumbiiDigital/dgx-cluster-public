@@ -120,6 +120,8 @@ The full result is in [NCCL-TUNING-RECORD.md](NCCL-TUNING-RECORD.md).
 
 ## Phase 8: revalidate after the rack changed again
 
+The physical result is documented in the [rack overview](../media/review/gumbii-dgx-spark-rack-overview.jpg). The public image is evidence of the build, not an operational topology diagram.
+
 After another teardown and reassembly, the full validation ran again rather than relying on the old success:
 
 - all eight management SSH checks passed;
@@ -132,6 +134,38 @@ After another teardown and reassembly, the full validation ran again rather than
 - the debug canary recorded `824` `NET/IB` lines and zero `NET/Socket` lines.
 
 The concurrent outliers were classified as test-load contention only because the same paths passed the bounded serial rerun. They were not silently discarded.
+
+## Phase 9: remove the PSU heat pocket and prove the fan path
+
+The middle of the rack concentrated eight power supplies, cable loops, and warm
+air in one narrow area. I designed a printed support that moved each PSU off the
+rack surface and opened a vertical path below the bricks.
+
+![Original PSU heat pocket](../media/review/01-rack-heat-pocket-before.jpg)
+
+The first orange print fit the PSU, but its rack-retention clip did not fit the
+shelf correctly. Reprinting the entire support for every dimensional change
+would have wasted time and material, so I printed four small clip coupons with
+four measurements, selected the one that fit, and transferred that dimension
+back into the full model.
+
+![Four dimensional clip tests](../media/review/05-dimensional-test-clips.jpg)
+
+The final green supports were printed in production pairs, installed across the
+rack, and positioned above a dedicated fan.
+
+![Fan below the raised PSU supports](../media/review/11-fan-below-psu-standoffs.jpg)
+
+The bounded control test started at `82.4 F` with the fan running. After a
+two-minute fan-OFF interval, the same rack probe read `82.8 F`. The fan was
+restored through the Raspberry Pi; the immediate reading was `82.9 F`, so I did
+not claim recovery yet. A later independent readback showed the fan ON and the
+probe at `82.5 F`. Every protected outlet remained ON.
+
+That test proves the selected fan relay, independent readback, and an observable
+short-window temperature response. It does not establish rack CFM, long-term
+thermal capacity, or a maximum safe workload temperature. The full print and
+test record is in [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md).
 
 ## What this work demonstrates
 
