@@ -16,7 +16,7 @@ This file records how the public repository was rebuilt from the private DGX Clu
 | Rack recable repair and later full rerun | [RACK-RECABLE-REVALIDATION.md](RACK-RECABLE-REVALIDATION.md) | stale forwarding relationship, complete directed matrices, bounded retry classification, NCCL proof |
 | Guarded recovery design | [RECOVERY-POLICY.md](RECOVERY-POLICY.md) | multi-signal eligibility, refusal logic, cooldown, single-use decision, recovery journal |
 | Raspberry Pi BLE commissioning | [POWER-BLE-COMMISSIONING.md](POWER-BLE-COMMISSIONING.md) | clean-room method, acknowledgement failure, decoder correction, fail-closed result |
-| Open-rack thermal walkthrough | [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md) | raised power supplies, upward fan design, planned test, explicit deferred result |
+| Open-rack thermal walkthrough | [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md) | PSU-support iterations, installation, fan placement, and bounded measured test |
 
 ## Sanitized categories
 
@@ -50,8 +50,9 @@ The public cluster record does not import:
 
 - raw evidence directories or logs;
 - private inventory and topology manifests;
-- unreviewed screenshots or rack photos; a single rack overview is staged under
-  `media/review/` for explicit owner review only;
+- unreviewed screenshots or rack photos; fourteen owner-reviewed JPEGs are
+  staged under `media/review/` with metadata removal and documented pixel
+  redactions;
 - controller captures or live power maps;
 - unrelated training corpora and model artifacts;
 - active monitoring state; or

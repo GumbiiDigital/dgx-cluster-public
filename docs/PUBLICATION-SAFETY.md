@@ -43,10 +43,11 @@ The addresses are reserved for documentation and do not identify the live enviro
 
 Unreviewed screenshots, rack photos, and equipment maps remain excluded. A
 user-owned image may be staged under `media/review/` only when its metadata has
-been removed, its pixels have been manually inspected, and its proposed
-placement is documented in [MEDIA-REVIEW.md](MEDIA-REVIEW.md). A staged image is
-not merged automatically and does not authorize publication of exact power,
-control, or live topology relationships.
+been removed, its pixels have been manually inspected, and its placement and
+redactions are documented in [MEDIA-REVIEW.md](MEDIA-REVIEW.md). The reviewed
+set records the PSU-support design and rack thermal work. Exact power,
+controller, host-label, and network-port relationships remain excluded or are
+pixelated in the public copy.
 
 ## Automated gate
 

@@ -6,10 +6,14 @@ This repository is the privacy-reviewed public record of how I brought up, repai
 
 ![Gumbii Digital DGX Spark rack overview](media/review/gumbii-dgx-spark-rack-overview.jpg)
 
-This rack overview is staged for owner review. It is intended to show the
-physical build behind the measurements, not to serve as an operational topology
-or equipment map. See [MEDIA-REVIEW.md](docs/MEDIA-REVIEW.md) for the redaction
-check, proposed placement, and pending PSU-clip/STL media slots.
+![Installed printed PSU supports](media/review/10-final-clips-installed-rear.jpg)
+
+The visual record now follows the power-supply support from the original heat
+pocket through dimensional test prints, final production parts, installation,
+and fan placement. Exact equipment labels and network-port relationships are
+redacted where they would reveal the live physical map. See
+[THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) for the complete build and
+measured fan test.
 
 ## What is here
 
@@ -23,7 +27,7 @@ The record follows the work in the order it happened:
 6. Tune separate four-system and eight-system NCCL profiles from repeated measurements.
 7. Revalidate the entire fabric after a physical rack recable.
 8. Commission rack-local BLE power control fail-closed after physical evidence disproved an early decoder assumption.
-9. Document the open-rack thermal design without claiming a fan test that was not completed.
+9. Design and print rack-mounted PSU supports, place the fan below the raised bricks, and prove the fan control path with a bounded temperature test.
 
 ## Recorded results
 
@@ -40,6 +44,7 @@ These are historical observations from the engineering record, not current servi
 | Full post-rewire directed RDMA | `112/112` ordered pairs, mean `109.20 Gbit/s` |
 | Tuned eight-system NCCL at 256 MiB | mean `22.9965 GB/s`, wrong `0` |
 | Later rack revalidation | jumbo `112/112`; RDMA `112/112` after bounded serial retry; NCCL `23.8196 GB/s`, wrong `0` |
+| Bounded rack-fan proof | `82.4 F` fan-ON baseline; `82.8 F` after two minutes OFF; `82.5 F` after ON recovery |
 
 The detailed context, failed hypotheses, and acceptance boundaries are preserved in the linked records. I do not flatten a long diagnosis into a benchmark screenshot.
 
@@ -56,7 +61,7 @@ The detailed context, failed hypotheses, and acceptance boundaries are preserved
 | [docs/RACK-RECABLE-REVALIDATION.md](docs/RACK-RECABLE-REVALIDATION.md) | Post-rewire fault and complete acceptance rerun |
 | [docs/POWER-BLE-COMMISSIONING.md](docs/POWER-BLE-COMMISSIONING.md) | Raspberry Pi BLE work and the fail-closed correction |
 | [docs/RECOVERY-POLICY.md](docs/RECOVERY-POLICY.md) | Guarded recovery decision and refusal logic |
-| [docs/THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) | Open-rack airflow design and the uncompleted differential test |
+| [docs/THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) | PSU-support design, print iterations, fan placement, and measured differential test |
 | [docs/SOURCE-ADAPTATION.md](docs/SOURCE-ADAPTATION.md) | What was preserved and what was sanitized |
 | [examples/sanitized-cluster-aliases.json](examples/sanitized-cluster-aliases.json) | Internally consistent public aliases |
 | [examples/nccl-profiles.json](examples/nccl-profiles.json) | Recorded tuning profiles and public-safe launcher aliases |
@@ -101,5 +106,5 @@ See [docs/PUBLICATION-SAFETY.md](docs/PUBLICATION-SAFETY.md) for the enforced bo
 - The measurements describe the recorded test conditions, not every workload or software version.
 - The public aliases are not valid deployment inventory.
 - The BLE work proves an identity-verified read path and a critical decoder correction; it does not claim unattended relay recovery is enabled.
-- The thermal design is documented, but the planned fan-off/fan-on differential was deferred and no cooling delta is claimed.
+- The fan test proves a bounded control-path and temperature response. It is not a CFM study, long-duration thermal-capacity test, or maximum safe workload claim.
 - No license has been selected for this repository.
