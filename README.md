@@ -4,9 +4,7 @@ This repository is the privacy-reviewed public record of how I brought up, repai
 
 ## Physical implementation evidence
 
-![Gumbii Digital DGX Spark rack overview](media/review/gumbii-dgx-spark-rack-overview.jpg)
-
-![Installed printed PSU supports](media/review/10-final-clips-installed-rear.jpg)
+![Completed Gumbii Digital DGX Spark rack](media/review/13-completed-rack-front-sanitized.jpg)
 
 The visual record now follows the power-supply support from the original heat
 pocket through dimensional test prints, final production parts, installation,
@@ -14,6 +12,33 @@ and fan placement. I reviewed and approved the visible rack labels and cabling
 in these photographs. See
 [THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) for the complete build and
 measured fan test.
+
+## Custom-printed PSU support system
+
+The eight PSU bricks originally occupied rack surfaces and concentrated warm
+hardware and cable loops through the middle of the rack. I designed a support
+that would secure each brick to the rack structure, keep both cable ends
+serviceable, and open a clear path below the power supplies for upward airflow.
+
+The first full orange prototype fit the PSU and preserved cable clearance, but
+its rack-retention clip did not seat correctly. Instead of reprinting the entire
+support for every adjustment, I isolated the clip geometry and printed four
+small dimensional test pieces in one run.
+
+![Four dimensional rack-clip tests](media/review/05-dimensional-test-clips.jpg)
+
+The best-fitting clip dimension went back into the full model. I then printed
+the production set in green and installed all eight supports against the rack
+structure.
+
+![Installed custom PSU supports](media/review/09-final-clips-installed-side.jpg)
+
+The finished system is a mechanical and thermal intervention, not cosmetic
+cable organization: the PSUs are retained and serviceable, the warm bricks no
+longer sit in a concentrated pile, and the AC Infinity fan has an open path
+below them. The complete prototype, fit-test, production, installation, and
+bounded temperature record is documented in
+[Open-Rack Thermal Management](docs/THERMAL-MANAGEMENT.md).
 
 ## What is here
 
@@ -44,6 +69,7 @@ These are historical observations from the engineering record, not current servi
 | Full post-rewire directed RDMA | `112/112` ordered pairs, mean `109.20 Gbit/s` |
 | Tuned eight-system NCCL at 256 MiB | mean `22.9965 GB/s`, wrong `0` |
 | Later rack revalidation | jumbo `112/112`; RDMA `112/112` after bounded serial retry; NCCL `23.8196 GB/s`, wrong `0` |
+| Custom PSU support system | Four clip geometries tested; eight production supports installed with serviceable cable paths and an open fan channel |
 | Bounded rack-fan proof | `82.4 F` fan-ON baseline; `82.8 F` after two minutes OFF; `82.5 F` after ON recovery |
 
 The detailed context, failed hypotheses, and acceptance boundaries are preserved in the linked records. I do not flatten a long diagnosis into a benchmark screenshot.
