@@ -24,7 +24,7 @@ The final campaign contains 200 records: 198 successful Spark samples and two fa
 
 The campaign is strong evidence for workload and Spark thermal progression. It is **not** sufficient evidence for a numerical fan-cooling effect because fan relay transitions were not recorded in the campaign samples and rack coverage is incomplete.
 
-## What we were trying to prove
+## What I was trying to prove
 
 The intended test had four parts:
 
