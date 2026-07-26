@@ -27,6 +27,7 @@ REQUIRED_FILES = {
     Path("docs/SHARE.md"),
     Path("docs/SOURCE-ADAPTATION.md"),
     Path("docs/THERMAL-MANAGEMENT.md"),
+    Path("docs/THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md"),
     Path("examples/nccl-profiles.json"),
     Path("examples/recovery-policy.json"),
     Path("examples/sanitized-cluster-aliases.json"),
