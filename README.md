@@ -89,6 +89,7 @@ The record follows the work in the order it happened:
 7. Revalidate the entire fabric after a physical rack recable.
 8. Commission rack-local BLE power control fail-closed after physical evidence disproved an early decoder assumption.
 9. Design and print rack-mounted PSU supports, place the fan below the raised bricks, and prove the fan control path with a bounded temperature test.
+10. Capture a complete eight-Spark GLM-5.2 thermal campaign, preserve telemetry through controller loss, and publish the mistakes and recovery without filling data gaps.
 
 ## Recorded results
 
@@ -107,6 +108,7 @@ These are historical observations from the engineering record, not current servi
 | Later rack revalidation | jumbo `112/112`; RDMA `112/112` after bounded serial retry; NCCL `23.8196 GB/s`, wrong `0` |
 | Custom PSU support system | Four clip geometries tested; eight production supports installed with serviceable cable paths and an open fan channel |
 | Bounded rack-fan proof | `82.4 F` fan-ON baseline; `82.8 F` after two minutes OFF; `82.5 F` after ON recovery |
+| Full-load thermal campaign | `200` records; `198` successful Spark samples; `62` all-eight-active samples; hottest Spark `86 C`; rack coverage `50/198` |
 
 The detailed context, failed hypotheses, and acceptance boundaries are preserved in the linked records. I do not flatten a long diagnosis into a benchmark screenshot.
 
@@ -124,6 +126,7 @@ The detailed context, failed hypotheses, and acceptance boundaries are preserved
 | [docs/POWER-BLE-COMMISSIONING.md](docs/POWER-BLE-COMMISSIONING.md) | Raspberry Pi BLE work and the fail-closed correction |
 | [docs/RECOVERY-POLICY.md](docs/RECOVERY-POLICY.md) | Guarded recovery decision and refusal logic |
 | [docs/THERMAL-MANAGEMENT.md](docs/THERMAL-MANAGEMENT.md) | PSU-support design, print iterations, fan placement, and measured differential test |
+| [docs/THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md](docs/THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md) | Complete full-load thermal campaign, controller failures, fallback capture, reporting mistakes, and recovery |
 | [docs/SOURCE-ADAPTATION.md](docs/SOURCE-ADAPTATION.md) | What was preserved and what was sanitized |
 | [examples/sanitized-cluster-aliases.json](examples/sanitized-cluster-aliases.json) | Internally consistent public aliases |
 | [examples/nccl-profiles.json](examples/nccl-profiles.json) | Recorded tuning profiles and public-safe launcher aliases |

@@ -50,6 +50,11 @@ Spark names, power-unit names, model markings, rack labels, and cabling.
 The photos contain no visible IP addresses, MAC addresses, credentials, account
 data, or private controller identifiers.
 
+The reviewed chart publishes aggregate workload and thermal measurements while
+omitting hostnames, addresses, controller identities, outlet mappings, and raw
+operational logs. Hatched chart regions represent unavailable controller data;
+they are not interpolated values.
+
 ## Automated gate
 
 The publication checker rejects common secret patterns, private and CGNAT addresses, multicast-local hostnames, email addresses, hardware-address formats, UUIDs, personal home paths, raw controller-map fields, and links to private source repositories. It also validates JSON, relative Markdown links, the Mermaid-only architecture file, and required repository structure.

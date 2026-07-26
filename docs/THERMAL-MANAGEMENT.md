@@ -122,3 +122,41 @@ This work demonstrates:
 
 It does not claim measured CFM, sealed-rack behavior, long-term thermal capacity,
 automatic production fan control, or a maximum safe workload temperature.
+
+## Full-load campaign addendum: July 25-26, 2026
+
+I followed the bounded fan proof with a longer campaign that captured the rack
+and all eight Sparks moving from idle into sustained GLM-5.2 inference and back
+to idle. This run also documented the failures around the experiment instead of
+editing them out: a misplaced probe, a queued controller read, a later period
+when both controller snapshots were unavailable, a Spark-only fallback, and an
+incomplete first version of the graph.
+
+![Complete rack and Spark thermal campaign](../media/review/14-complete-thermal-campaign.jpg)
+
+### How to read the graph
+
+- The **top panel** shows recorded fleet GPU power in magenta and the number of
+  active GPUs in green. The vertical markers identify first GPU activity, the
+  first all-eight-active sample, and the beginning of cooldown.
+- The **middle panel** shows the fleet mean Spark temperature as the orange line.
+  The pale envelope spans the coolest and hottest Spark in each successful
+  sample.
+- The **bottom panel** shows the two rack/controller probe readings only where a
+  controller snapshot was actually available. The hatched region is missing
+  rack data, not a temperature estimate. The isolated point at the far right is
+  the final rack reading after controller data returned.
+
+The complete record contains `200` records, `198` successful Spark samples, two
+failed collection samples, and `50` successful samples with rack temperature.
+The other `148` successful Spark samples retain workload and Spark temperature
+data but have no rack reading. The hottest Spark reached `86 C`; the fleet mean
+reached `82.875 C`; and observed fleet GPU power peaked at `549.11 W`.
+
+This graph proves the recorded workload and Spark thermal progression. It does
+not prove a numerical fan-cooling effect because verified fan transitions were
+not present in the campaign samples and rack coverage was incomplete.
+
+The full sequence, including every mistake, safety refusal, recovery action,
+reporting correction, and remaining uncertainty, is in
+[Rack Thermal Control and GLM-5.2 Campaign: Incident and Recovery](THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md).

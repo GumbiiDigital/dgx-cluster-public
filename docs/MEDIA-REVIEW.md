@@ -26,6 +26,7 @@ The existing rack overview remains part of the review set:
 | 11 | `media/review/11-fan-below-psu-standoffs.jpg` | Fan position below the raised PSU bricks |
 | 12 | `media/review/12-completed-rack-rear-sanitized.jpg` | Completed rear arrangement with reviewed equipment labels |
 | 13 | `media/review/13-completed-rack-front-sanitized.jpg` | Completed front arrangement with reviewed rack labels and cabling |
+| 14 | `media/review/14-complete-thermal-campaign.jpg` | Metadata-scrubbed chart of workload, Spark temperatures, and explicitly missing rack/controller intervals |
 
 The complete sequence is placed in
 [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md). Selected frames appear in the

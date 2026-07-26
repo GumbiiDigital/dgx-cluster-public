@@ -1,5 +1,26 @@
 # Share Copy
 
+## Rack thermal campaign addendum
+
+I documented the full thermal run instead of posting only the clean part.
+
+This captures all eight DGX Sparks moving from idle into sustained GLM-5.2
+inference and back down again: `200` records, `198` successful Spark samples,
+`62` all-eight-active samples, a fleet mean peak of `82.875 C`, and a hottest
+Spark at `86 C`.
+
+It also includes what went wrong: a probe placed too close to exhaust, a queued
+controller read that timed out after the fan command had already succeeded, a
+later loss of controller snapshots, fallback Spark-only collection, and an
+early graph that omitted the final records and visually crossed missing rack
+data.
+
+The corrected graph leaves the missing rack interval visible. It proves the
+workload and Spark thermal progression; it does not pretend the incomplete fan
+state data proves a cooling delta.
+
+https://github.com/GumbiiDigital/dgx-cluster-public/blob/main/docs/THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md
+
 ## Short post
 
 I rebuilt my DGX Cluster public repo around the work itself: the slow underlay, the switch forwarding root cause, the dual-rail repair, NCCL tuning, rack recabling, custom-printed PSU supports, and a bounded AC Infinity fan test. The measurements and build photographs are real. The live identities and topology are not published.

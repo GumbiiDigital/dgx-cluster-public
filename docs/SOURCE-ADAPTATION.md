@@ -17,6 +17,7 @@ This file records how the public repository was rebuilt from the private DGX Clu
 | Guarded recovery design | [RECOVERY-POLICY.md](RECOVERY-POLICY.md) | multi-signal eligibility, refusal logic, cooldown, single-use decision, recovery journal |
 | Raspberry Pi BLE commissioning | [POWER-BLE-COMMISSIONING.md](POWER-BLE-COMMISSIONING.md) | clean-room method, acknowledgement failure, decoder correction, fail-closed result |
 | Open-rack thermal walkthrough | [THERMAL-MANAGEMENT.md](THERMAL-MANAGEMENT.md) | PSU-support iterations, installation, fan placement, and bounded measured test |
+| Full-load thermal campaign addendum | [THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md](THERMAL-CAMPAIGN-INCIDENT-RECOVERY-2026-07-25.md) | complete workload progression, controller-observation failures, fail-closed behavior, fallback capture, analysis corrections, and evidence limits |
 
 ## Sanitized categories
 
