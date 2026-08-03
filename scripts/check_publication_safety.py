@@ -14,6 +14,7 @@ SELF = Path("scripts/check_publication_safety.py")
 FENCE = chr(96) * 3
 REQUIRED_FILES = {
     Path("README.md"),
+    Path("LICENSE"),
     Path("docs/ARCHITECTURE.md"),
     Path("docs/CASE-STUDY.md"),
     Path("docs/MEDIA-REVIEW.md"),
@@ -204,9 +205,6 @@ def main() -> int:
     failures.extend(
         f"missing required file: {path}" for path in sorted(REQUIRED_FILES - present)
     )
-
-    license_files = [path for path in files if path.name.upper().startswith("LICENSE")]
-    failures.extend(f"license file is not authorized: {path}" for path in license_files)
 
     image_suffixes = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
     for relative in files:

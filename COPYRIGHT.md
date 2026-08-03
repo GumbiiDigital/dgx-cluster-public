@@ -1,17 +1,12 @@
-# Copyright
+# Copyright and license scope
 
-Copyright (c) 2026 Gumbii Digital. All rights reserved.
+Copyright (c) 2026 Gumbii Digital.
 
-Unless a file or third-party notice states otherwise, the original text,
-photographs, diagrams, examples, and software in this repository may not be
-copied, modified, distributed, sublicensed, or used commercially without prior
-written permission from Gumbii Digital.
+Gumbii Digital's original code, documentation, examples, data arrangement,
+diagrams, and media in this repository are licensed under the [MIT License](LICENSE).
+You may use, copy, modify, distribute, sublicense, and sell that material under
+the terms of that license.
 
-Public availability on GitHub does not grant an open-source license. GitHub's
-Terms of Service continue to govern use of GitHub features, including viewing
-and forking.
-
-Third-party names, product names, and trademarks remain the property of their
-respective owners. Any third-party material retains its original license and
-notice requirements.
-
+The MIT License does not transfer ownership of third-party material, product
+names, logos, or trademarks. Those remain subject to their owners' licenses
+and notices. Repository-specific notices identify known exclusions.

@@ -172,9 +172,12 @@ See [docs/PUBLICATION-SAFETY.md](docs/PUBLICATION-SAFETY.md) for the enforced bo
 - The public aliases are not valid deployment inventory.
 - The BLE work proves an identity-verified read path and a critical decoder correction; it does not claim unattended relay recovery is enabled.
 - The fan test proves a bounded control-path and temperature response. It is not a CFM study, long-duration thermal-capacity test, or maximum safe workload claim.
-- This repository is published without an open-source license.
+- Operational omissions limit what can be reproduced, but the material that is
+  published here is open source under the MIT License.
 
-## Copyright
+## License
 
-Copyright (c) 2026 Gumbii Digital. All rights reserved. See
-[COPYRIGHT.md](COPYRIGHT.md) for the publication and reuse terms.
+Gumbii Digital's original code, documentation, examples, data, diagrams, and
+media are available under the [MIT License](LICENSE). Third-party components,
+assets, product names, and trademarks retain their respective terms; see
+[COPYRIGHT.md](COPYRIGHT.md) for scope.
